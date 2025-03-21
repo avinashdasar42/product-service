@@ -10,18 +10,30 @@ import com.api.thirdparty.product_service.models.Product;
 @Service
 public class ProductServiceImpl implements ProductService{
 	
-	private final RestTemplate restTemplate;
+//	private final RestTemplate restTemplate;
+//	
+//	public ProductServiceImpl(RestTemplate restTemplate) {
+//		this.restTemplate = restTemplate;
+//	}
 	
-	public ProductServiceImpl(RestTemplate restTemplate) {
-		this.restTemplate = restTemplate;
-	}
+//	1. Using Rest Template	
+//	@Override
+//	public Optional<Product> getProductById(Long id) {
+//		Product product = restTemplate.getForObject("https://fakestoreapi.com/products/"+id, Product.class);
+//		return Optional.ofNullable(product);
+//	}
+
+	public final FakeStoreAPI fakeStoreAPI;
 	
-	@Override
-	public Optional<Product> getProductById(Long id) {
-		
-		//1. Using Rest Template
-		Product product = restTemplate.getForObject("https://fakestoreapi.com/products/"+id, Product.class);
-		return Optional.ofNullable(product);
+	public ProductServiceImpl(FakeStoreAPI fakeStoreAPI) {
+		this.fakeStoreAPI = fakeStoreAPI;
 	}
 
+	//	2. Using Open Feign Client
+	@Override
+	public Optional<Product> getProductById(Long id) {
+		Product product = fakeStoreAPI.getProductById(id);
+		System.out.println("Using Open Feign Client");
+		return Optional.ofNullable(product);
+	}
 }
