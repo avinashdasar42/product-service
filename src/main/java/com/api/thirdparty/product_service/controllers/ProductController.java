@@ -1,5 +1,6 @@
 package com.api.thirdparty.product_service.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -31,5 +32,11 @@ public class ProductController {
 		}
 		return new ResponseEntity<Product>(product.get(), HttpStatus.OK);
 	}
+	
+	@GetMapping
+	public ResponseEntity<List<Product>> getAllProducts(){
+		return new ResponseEntity<>(productService.getAllProducts(),HttpStatus.OK);
+	}
+	
 
 }

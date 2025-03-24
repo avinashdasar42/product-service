@@ -1,5 +1,7 @@
 package com.api.thirdparty.product_service.services;
 
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,4 +13,7 @@ public interface FakeStoreAPI {
 
 	@GetMapping("/{id}")
 	Product getProductById(@PathVariable("id") Long id);
+	
+	@GetMapping
+	List<Product> getAllProducts(); 
 }

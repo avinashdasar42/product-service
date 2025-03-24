@@ -1,5 +1,6 @@
 package com.api.thirdparty.product_service.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -35,5 +36,11 @@ public class ProductServiceImpl implements ProductService{
 		Product product = fakeStoreAPI.getProductById(id);
 		System.out.println("Using Open Feign Client");
 		return Optional.ofNullable(product);
+	}
+
+	@Override
+	public List<Product> getAllProducts() {
+		
+		return null;
 	}
 }
