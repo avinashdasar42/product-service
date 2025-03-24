@@ -2,6 +2,8 @@ package com.api.thirdparty.product_service.controllers;
 
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,13 +23,13 @@ public class ProductController {
 	}
 
 	@GetMapping("/{id}")
-	public Product getProductById(@PathVariable("id") Long id) {
+	public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) {
 		Optional<Product> product = productService.getProductById(id);
 		if(product.isEmpty()) {
 //			throw exception
-			return null; //work-around
+			return new ResponseEntity<Product>(HttpStatus.BAD_REQUEST);
 		}
-		return product.get();
+		return new ResponseEntity<Product>(product.get(), HttpStatus.OK);
 	}
 
 }
