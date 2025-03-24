@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.api.thirdparty.product_service.models.Product;
+import com.api.thirdparty.product_service.models.ProductDto;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -39,8 +40,13 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<Product> getAllProducts() {
-		
-		return null;
+	public List<Product> getAllProducts() {		
+		return fakeStoreAPI.getAllProducts();
+	}
+
+	@Override
+	public Product createProduct(ProductDto dto) {
+		Product product = ProductDto.convertToProductFrom(dto);
+		return fakeStoreAPI.createProduct(product);		
 	}
 }
