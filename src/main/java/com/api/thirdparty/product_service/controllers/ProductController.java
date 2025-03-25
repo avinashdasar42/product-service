@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.thirdparty.product_service.exceptions.ProductNotFoundException;
 import com.api.thirdparty.product_service.models.Product;
 import com.api.thirdparty.product_service.models.ProductDto;
 import com.api.thirdparty.product_service.services.ProductService;
@@ -29,13 +30,9 @@ public class ProductController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) {
-		Optional<Product> product = productService.getProductById(id);
-		if(product.isEmpty()) {
-//			throw exception
-			return new ResponseEntity<Product>(HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<Product>(product.get(), HttpStatus.OK);
+	public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) throws ProductNotFoundException {
+		Product product = productService.getProductById(id);
+		return new ResponseEntity<Product>(product, HttpStatus.OK);
 	}
 	
 	@GetMapping

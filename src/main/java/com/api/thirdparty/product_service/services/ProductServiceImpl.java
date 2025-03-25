@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.api.thirdparty.product_service.exceptions.ProductNotFoundException;
 import com.api.thirdparty.product_service.models.Product;
 import com.api.thirdparty.product_service.models.ProductDto;
 
@@ -33,10 +34,12 @@ public class ProductServiceImpl implements ProductService{
 
 	//	2. Using Open Feign Client
 	@Override
-	public Optional<Product> getProductById(Long id) {
+	public Product getProductById(Long id) throws ProductNotFoundException {
 		Product product = fakeStoreAPI.getProductById(id);
-		System.out.println("Using Open Feign Client");
-		return Optional.ofNullable(product);
+		if(product == null) {
+			throw new ProductNotFoundException("Product with id : "+id+" not found");
+		}
+		return product;
 	}
 
 	@Override
