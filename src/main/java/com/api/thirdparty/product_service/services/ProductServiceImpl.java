@@ -49,4 +49,9 @@ public class ProductServiceImpl implements ProductService{
 		Product product = ProductDto.convertToProductFrom(dto);
 		return fakeStoreAPI.createProduct(product);		
 	}
+
+	@Override
+	public Product deleteProduct(Long id) {
+		return fakeStoreAPI.deleteProduct(id);
+	}
 }
