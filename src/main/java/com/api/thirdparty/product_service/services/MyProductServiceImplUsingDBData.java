@@ -53,4 +53,10 @@ public class MyProductServiceImplUsingDBData implements ProductService{
 		productRepository.deleteById(id);
 	}
 
+	@Override
+	public List<Product> productCostlierThan(double price) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

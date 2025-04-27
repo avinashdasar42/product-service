@@ -55,4 +55,10 @@ public class ProductServiceImplUsing3rdPartyFakeStoreApi implements ProductServi
 	public void deleteProduct(Long id) {
 		fakeStoreAPI.deleteProduct(id);
 	}
+
+	@Override
+	public List<Product> productCostlierThan(double price) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

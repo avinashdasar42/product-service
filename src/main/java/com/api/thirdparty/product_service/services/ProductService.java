@@ -16,4 +16,6 @@ public interface ProductService {
 	
 	void deleteProduct(Long id);
 	
+	List<Product> productCostlierThan(double price);
+	
 }
