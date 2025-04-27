@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.thirdparty.product_service.exceptions.ProductNotFoundException;
 import com.api.thirdparty.product_service.models.Product;
-import com.api.thirdparty.product_service.models.ProductDto;
 import com.api.thirdparty.product_service.services.ProductService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/products")
@@ -45,16 +46,16 @@ public class ProductController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Product> createProduct(@RequestBody ProductDto productDto){
-		Product product = productService.createProduct(productDto);	
-		return new ResponseEntity<Product>(product, HttpStatus.CREATED);
+	public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product){
+		Product savedProduct = productService.createProduct(product);
+		return new ResponseEntity<Product>(savedProduct, HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteProduct(@PathVariable("id") Long id){
 		try {
 			productService.deleteProduct(id);
-			return new ResponseEntity<>("Product "+id+" deleted Successfully",HttpStatus.OK);
+			return new ResponseEntity<>("Product "+id+" deleted Successfully",HttpStatus.NO_CONTENT);
 		}catch(Exception ex) {
 			return new ResponseEntity<>("Bad Request",HttpStatus.BAD_REQUEST);
 		}

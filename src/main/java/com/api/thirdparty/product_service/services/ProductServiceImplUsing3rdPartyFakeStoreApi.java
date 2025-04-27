@@ -8,10 +8,9 @@ import org.springframework.web.client.RestTemplate;
 
 import com.api.thirdparty.product_service.exceptions.ProductNotFoundException;
 import com.api.thirdparty.product_service.models.Product;
-import com.api.thirdparty.product_service.models.ProductDto;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImplUsing3rdPartyFakeStoreApi implements ProductService{
 	
 //	private final RestTemplate restTemplate;
 //	
@@ -28,7 +27,7 @@ public class ProductServiceImpl implements ProductService{
 
 	public final FakeStoreAPI fakeStoreAPI;
 	
-	public ProductServiceImpl(FakeStoreAPI fakeStoreAPI) {
+	public ProductServiceImplUsing3rdPartyFakeStoreApi(FakeStoreAPI fakeStoreAPI) {
 		this.fakeStoreAPI = fakeStoreAPI;
 	}
 
@@ -48,13 +47,12 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public Product createProduct(ProductDto dto) {
-		Product product = ProductDto.convertToProductFrom(dto);
+	public Product createProduct(Product product) {
 		return fakeStoreAPI.createProduct(product);		
 	}
 
 	@Override
-	public Product deleteProduct(Long id) {
-		return fakeStoreAPI.deleteProduct(id);
+	public void deleteProduct(Long id) {
+		fakeStoreAPI.deleteProduct(id);
 	}
 }

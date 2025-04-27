@@ -23,5 +23,5 @@ public interface FakeStoreAPI {
 	Product createProduct(Product product);
 	
 	@DeleteMapping("/{id}")
-	Product deleteProduct(@PathVariable("id") Long id);
+	void deleteProduct(@PathVariable("id") Long id);
 }
